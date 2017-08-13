@@ -34,7 +34,11 @@ const reduce = (elements, cb, memo = elements.shift()) => {
   // Combine all elements into a single value going from left to right.
   // Elements will be passed one by one into `cb`.
   // `memo` is the starting value.  If `memo` is undefined then make `elements[0]` the initial value.
-
+  const sum = memo;
+  each(elements, (element) => {
+    sum.concat(element);
+  });
+  return sum;
 };
 
 const find = (elements, cb) => {
@@ -48,6 +52,8 @@ const find = (elements, cb) => {
     }
   }
   // WHY WON'T THIS PASSSSS?!?!?!
+  // Answer: Emily says it is b/c forEach will not break out of loop.
+  // it will continue through complete array..
   // elements.forEach((element) => {
   //   if (cb(element) === true) {
   //     return element;
@@ -70,6 +76,15 @@ const filter = (elements, cb) => {
 const flatten = (elements) => {
   // Flattens a nested array (the nesting can be to any depth).
   // Example: flatten([1, [2], [3, [[4]]]]); => [1, 2, 3, 4];
+  const flat = [];
+  elements.forEach((element) => {
+    if (Array.isArray(element)) {
+      flatten(element);
+    } else {
+      flat.push(element);
+    }
+  });
+  return flat;
 };
 
 /* eslint-enable no-unused-vars, max-len */
