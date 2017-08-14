@@ -77,14 +77,14 @@ const flatten = (elements) => {
   // Flattens a nested array (the nesting can be to any depth).
   // Example: flatten([1, [2], [3, [[4]]]]); => [1, 2, 3, 4];
   const flat = [];
-  elements.forEach((element) => {
-    if (Array.isArray(element)) {
-      flatten(element);
-    } else {
-      flat.push(element);
-    }
-  });
-  return flat;
+  if (elements.length < 2) {
+    return elements;
+  } else if (Array.isArray(elements)) {
+    elements.forEach((element) => {
+        flatten(element);
+        }
+    });
+    return flat;
 };
 
 /* eslint-enable no-unused-vars, max-len */
